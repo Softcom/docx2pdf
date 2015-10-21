@@ -104,8 +104,15 @@ namespace Docx2PDF
 
                     // Terminate Winword instance by PID.
                     Console.WriteLine("Terminating Winword process with the Windowtitle '{0}' and the Application ID: '{1}'.", wordAppId, processId);
-                    Process process = Process.GetProcessById(processId);
-                    process.Kill();
+                    try
+                    {
+                        Process process = Process.GetProcessById(processId);
+                        process.Kill();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("No Winword instance currently running with the give id '{0}', everything fine.", processId);
+                    }
 
                 }
             }
